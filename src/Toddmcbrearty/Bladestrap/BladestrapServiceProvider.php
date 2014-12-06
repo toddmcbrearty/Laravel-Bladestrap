@@ -2,7 +2,7 @@
 
 use Illuminate\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
-use Toddmcbreaty\Bladestrap\BladestrapFormBuilder;
+use Toddmcbrearty\Bladestrap\BladestrapFormBuilder;
 
 class BladestrapServiceProvider extends ServiceProvider {
 
