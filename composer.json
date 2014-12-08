@@ -1,6 +1,6 @@
 {
     "name": "toddmcbrearty/bladestrap",
-    "description": "",
+    "description": "Generate bootstrap form elements blocks.",
     "authors": [
         {
             "name": "Todd Mc Brearty",
@@ -16,5 +16,5 @@
             "Toddmcbrearty\\Bladestrap": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
