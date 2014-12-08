@@ -14,14 +14,25 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siOpen($options = [])
+    public function elOpen($options = [])
     {
         $default_options = [
             'role' => 'form',
         ];
 
         $options = array_merge($default_options, $options);
+
         return $this->open($options);
+    }
+
+    /**
+     * This just make its stay uniform in the views
+     *
+     * @return mixed
+     */
+    public function elClose()
+    {
+        return $this->close();
     }
 
     /**
@@ -32,7 +43,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siText($name, $label, $value = null, $options = [])
+    public function elText($name, $label, $value = null, $options = [])
     {
         return $this->field('text', $name, $label, $value, $options);
     }
@@ -45,7 +56,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siEmail($name, $label, $value = null, $options = [])
+    public function elEmail($name, $label, $value = null, $options = [])
     {
         return $this->field('email', $name, $label, $value, $options);
     }
@@ -58,7 +69,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siPassword($name, $label, $options = [])
+    public function elPassword($name, $label, $options = [])
     {
         return $this->field('password', $name, $label, null, $options);
     }
@@ -71,18 +82,29 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siTextarea($name, $label, $value = null, $options = []) {
+    public function elTextarea($name, $label, $value = null, $options = [])
+    {
         return $this->field('textarea', $name, $label, $value, $options);
     }
 
-    /**
-     * @param       $value
-     * @param array $options
-     *
-     * @return string
-     */
-    public function siSubmit($value, $options = []) {
-        return $this->buttons('submit', $value, $options);
+    public function elRadio($name, $label, $value = 1, $checked = null, $options = array())
+    {
+
+        $radio = $this->radio($name, $value, $checked, $options);
+
+        $html = $radio . ' ' . $label;
+
+        return $this->wrapCheckboxRadioGroup($html, 'radio');
+    }
+
+    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array())
+    {
+
+        $checkbox = $this->checkbox($name, $value, $checked, $options);
+
+        $html = $checkbox . ' ' . $label;
+
+        return $this->wrapCheckboxRadioGroup($html, 'checkbox');
     }
 
     /**
@@ -91,20 +113,34 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function siButton($value, $options = []) {
-        return $this->buttons('button', $value, $options);
+    public function elSubmit($value, $options = [], $class = 'warning')
+    {
+        return $this->buttons('submit', $value, $options, $class);
     }
 
     /**
-     * @param $errors
+     * @param       $value
+     * @param array $options
      *
      * @return string
      */
-    public function errors($errors) {
-        $html = '<div class="alert alert-danger"><ul class="list-unstyled">';
+    public function elButton($value, $options = [], $class = 'success')
+    {
+        return $this->buttons('button', $value, $options, $class);
+    }
 
-        foreach($errors as $error) {
-            $html .= "<li>{$error}</li>";
+    /**
+     * @param $messages
+     *
+     * @return string
+     */
+    public function message($messages, $class = 'success')
+    {
+        $html = '<div class="alert alert-'.$class.'"><ul class="list-unstyled">';
+
+        foreach($messages as $message)
+        {
+            $html .= "<li>{$message}</li>";
         }
 
         $html .= "</ul></div>";
@@ -117,7 +153,17 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    private function wrap($html)
+    private function wrapCheckboxRadioGroup($html, $checkRadio)
+    {
+        return "<div class=\"{$checkRadio}\"><label>{$html}</label></div>";
+    }
+
+    /**
+     * @param $html
+     *
+     * @return string
+     */
+    private function wrapFormGroup($html)
     {
         return "<div class=\"form-group\">{$html}</div>";
     }
@@ -143,7 +189,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         else
             $html .= $this->$type($name, $value, $options);
 
-        return $this->wrap($html);
+        return $this->wrapFormGroup($html);
     }
 
     /**
@@ -152,14 +198,22 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    private function buttons($type, $value, $options)
+    private function buttons($type, $value, $options, $class)
     {
+
         $default_options = [
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-'.$class,
         ];
+
+        if(isset($options['class'])) {
+            $options['class'] = $default_options['class'] . ' ' . $options['class'];
+            unset($default_options['class']);
+        }
 
         $options = array_merge($default_options, $options);
 
-        return $this->wrap($this->$type($value, $options));
+        return $this->wrapFormGroup($this->$type($value, $options));
     }
+
+
 }
