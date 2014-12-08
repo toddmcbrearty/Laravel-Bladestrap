@@ -2,7 +2,7 @@
 
 use Illuminate\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
-use Toddmcbrearty\Bladestrap\BladestrapFormBuilder;
+//use Toddmcbrearty\Bladestrap\BladestrapFormBuilder;
 
 class BladestrapServiceProvider extends ServiceProvider {
 
@@ -20,7 +20,9 @@ class BladestrapServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('toddmcbrearty/bladestrap');
+		if(method_exists($this, 'package'))
+			$this->package('toddmcbrearty/bladestrap');
+
 	}
 
 	public function register() {
