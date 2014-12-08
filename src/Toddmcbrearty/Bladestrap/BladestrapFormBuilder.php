@@ -56,6 +56,19 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
+    public function bsNumber($name, $label, $value = null, $options = [])
+    {
+        return $this->field('number', $name, $label, $value, $options);
+    }
+
+    /**
+     * @param       $name
+     * @param       $label
+     * @param null  $value
+     * @param array $options
+     *
+     * @return string
+     */
     public function elEmail($name, $label, $value = null, $options = [])
     {
         return $this->field('email', $name, $label, $value, $options);
