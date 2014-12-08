@@ -10,6 +10,12 @@ use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
 class BladestrapFormBuilder extends IlluminateFormBuilder {
 
     /**
+     * @var array
+     */
+    private $wrapper_options = [];
+
+
+    /**
      * @param array $options
      *
      * @return string
@@ -40,11 +46,14 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      * @param       $label
      * @param null  $value
      * @param array $options
+     * @param array $wrapper_options
      *
      * @return string
      */
-    public function elText($name, $label, $value = null, $options = [])
+    public function elText($name, $label, $value = null, $options = [], $wrapper_options = [])
     {
+        $this->wrapper_options = $wrapper_options;
+
         return $this->field('text', $name, $label, $value, $options);
     }
 
@@ -100,6 +109,15 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         return $this->field('textarea', $name, $label, $value, $options);
     }
 
+    /**
+     * @param       $name
+     * @param       $label
+     * @param int   $value
+     * @param null  $checked
+     * @param array $options
+     *
+     * @return string
+     */
     public function elRadio($name, $label, $value = 1, $checked = null, $options = array())
     {
 
@@ -110,6 +128,15 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         return $this->wrapCheckboxRadioGroup($html, 'radio');
     }
 
+    /**
+     * @param       $name
+     * @param       $label
+     * @param int   $value
+     * @param null  $checked
+     * @param array $options
+     *
+     * @return string
+     */
     public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array())
     {
 
@@ -140,6 +167,30 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
     public function elButton($value, $options = [], $class = 'success')
     {
         return $this->buttons('button', $value, $options, $class);
+    }
+
+    /**
+     * @param $name
+     * @param $label
+     * @param $list
+     * @param $selected
+     * @param $options
+     *
+     * @return string
+     */
+    public function elSelect($name, $label, $list, $selected = null, $options = [])
+    {
+        $default_options = [
+            'class' => 'form-control',
+        ];
+
+        $options = $this->parseOptions($options, $default_options);
+
+        $html = $this->label($name, ucwords($label));
+        $html .= $this->select($name, $list, $selected, $options);
+
+        return $this->wrapFormGroup($html);
+
     }
 
     /**
@@ -178,7 +229,13 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      */
     private function wrapFormGroup($html)
     {
-        return "<div class=\"form-group\">{$html}</div>";
+        $default_options = [
+            'class' => 'form-group',
+        ];
+
+        $options = $this->parseOptions($this->wrapper_options, $default_options);
+        
+        return "<div ".$this->html->attributes($options).">{$html}</div>";
     }
 
     /**
@@ -195,7 +252,8 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
             'class' => 'form-control',
         ];
 
-        $options = array_merge($default_options, $options);
+        $options = $this->parseOptions($options, $default_options);
+
         $html = $this->label($name, ucwords($label));
         if($type == 'password')
             $html .= $this->$type($name, $options);
@@ -226,6 +284,27 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         $options = array_merge($default_options, $options);
 
         return $this->wrapFormGroup($this->$type($value, $options));
+    }
+
+    /**
+     * @param $value
+     * @param $options
+     * @param $default_options
+     *
+     * @return array
+     */
+    private function parseOptions($options, $default_options)
+    {
+        foreach($options as $option => $value)
+        {
+            if($option == 'class')
+            {
+                $default_options['class'] = $default_options['class'] . ' ' . $value;
+            }
+        }
+
+        return array_merge($options, $default_options);
+
     }
 
 

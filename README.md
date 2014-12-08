@@ -41,6 +41,7 @@ also use the bootstrap methods.
 * elTextarea
 * elRadio
 * elCheckbox
+* elSelect
 * elSubmit
 * elButton
 * message
