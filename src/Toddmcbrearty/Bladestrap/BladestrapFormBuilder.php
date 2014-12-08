@@ -1,14 +1,13 @@
 <?php namespace Toddmcbrearty\Bladestrap;
 
 use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
-use Toddmcbrearty\Bladestrap\Contracts\Bladestrap;
 
 /**
  * Class FormBuilder
  *
  * @package AcmeHtml
  */
-class BladestrapFormBuilder extends IlluminateFormBuilder implements Bladestrap {
+class BladestrapFormBuilder extends IlluminateFormBuilder {
 
     /**
      * @param array $options
