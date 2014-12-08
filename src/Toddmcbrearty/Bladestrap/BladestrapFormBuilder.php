@@ -56,7 +56,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function bsNumber($name, $label, $value = null, $options = [])
+    public function elNumber($name, $label, $value = null, $options = [])
     {
         return $this->field('number', $name, $label, $value, $options);
     }
