@@ -32,19 +32,19 @@ also use the bootstrap methods.
 
 **New available methods:**
 
-* elOpen
-* elClose
-* elText
-* elNumber
-* elPassword
-* elEmail
-* elTextarea
-* elRadio
-* elCheckbox
-* elSelect
-* elSubmit
-* elButton
-* message
+* elOpen(options = [])
+* elClose()
+* elText($name, $label, $value = null, $options = [], $wrapper_options = [])
+* elNumber($name, $label, $value = null, $options = [])
+* elPassword($name, $label, $value = null, $options = [])
+* elEmail($name, $label, $options = [])
+* elTextarea($name, $label, $value = null, $options = [])
+* elRadio($name, $label, $value = 1, $checked = null, $options = array())
+* elCheckbox($name, $label, $value = 1, $checked = null, $options = array())
+* elSelect($name, $label, $list, $selected = null, $options = [])
+* elSubmit($value, $options = [], $class = 'warning')
+* elButton($value, $options = [], $class = 'success')
+* message($messages, $class = 'success')
 
 #Example:
 ###Blade Code
