@@ -20,7 +20,8 @@ Look within your providers key
 
     'Illuminate\Html\HtmlServiceProvider',
     
-**add line**
+**then add line**
+
     'Toddmcbrearty\Bladestrap\BladestrapServiceProvider',
     
 #Usage
