@@ -10,6 +10,8 @@ I am building it as I need it. If you update it please fork and add a push reque
 ###Composer
 
     composer require toddmcbrearty\bladestrap
+    or
+    add "toddmcbrearty/bladestrap": "dev-master" to your composer file
 
 ####Laravel 4.2.*
 
