@@ -25,9 +25,9 @@ Look within your providers key
     
 #Usage
 
-You have all the blade function alighty extended through this package.
+You have all the blade function already extended through this package.
 You can still use all your Form:: methods but now you can
-also use the bootstrap enclosed methods.
+also use the bootstrap methods.
 
 **New available methods:**
 
@@ -44,8 +44,8 @@ also use the bootstrap enclosed methods.
 * elButton
 * message
 
-#Examples
-
+#Example:
+###Blade Code
     {{ Form::elOpen() }}
         {{ Form::elText('username', 'Username:') }}
         {{ Form::elPassword('password', 'Password:') }}
