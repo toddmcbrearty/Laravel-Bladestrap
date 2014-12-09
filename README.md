@@ -51,6 +51,7 @@ also use the bootstrap methods.
     * Columns are created based on the amount of data elements there are
 #Example:
 ###Blade Code
+
     {{ Form::elOpen() }}
         {{ Form::elText('username', 'Username:') }}
         {{ Form::elPassword('password', 'Password:') }}
