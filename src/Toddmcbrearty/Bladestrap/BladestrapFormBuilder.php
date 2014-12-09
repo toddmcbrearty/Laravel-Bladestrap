@@ -1,6 +1,8 @@
 <?php namespace Toddmcbrearty\Bladestrap;
 
 use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
+use Illuminate\Support\Facades\Form;
+use Illuminate\Support\Facades\HTML;
 
 /**
  * Class FormBuilder
@@ -52,21 +54,25 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      */
     public function elText($name, $label, $value = null, $options = [], $wrapper_options = [])
     {
-        $this->wrapper_options = $wrapper_options;
+        $this->setWrapperOptions($wrapper_options);
 
         return $this->field('text', $name, $label, $value, $options);
     }
+
 
     /**
      * @param       $name
      * @param       $label
      * @param null  $value
      * @param array $options
+     * @param array $wrapper_options
      *
      * @return string
      */
-    public function elNumber($name, $label, $value = null, $options = [])
+    public function elNumber($name, $label, $value = null, $options = [], $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->field('number', $name, $label, $value, $options);
     }
 
@@ -75,24 +81,29 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      * @param       $label
      * @param null  $value
      * @param array $options
+     * @param array $wrapper_options
      *
      * @return string
      */
-    public function elEmail($name, $label, $value = null, $options = [])
+    public function elEmail($name, $label, $value = null, $options = [], $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->field('email', $name, $label, $value, $options);
     }
 
     /**
      * @param       $name
      * @param       $label
-     * @param null  $value
      * @param array $options
+     * @param array $wrapper_options
      *
      * @return string
      */
-    public function elPassword($name, $label, $options = [])
+    public function elPassword($name, $label, $options = [], $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->field('password', $name, $label, null, $options);
     }
 
@@ -101,11 +112,14 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      * @param       $label
      * @param null  $value
      * @param array $options
+     * @param array $wrapper_options
      *
      * @return string
      */
-    public function elTextarea($name, $label, $value = null, $options = [])
+    public function elTextarea($name, $label, $value = null, $options = [], $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->field('textarea', $name, $label, $value, $options);
     }
 
@@ -115,18 +129,22 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      * @param int   $value
      * @param null  $checked
      * @param array $options
+     * @param bool  $inline
      *
      * @return string
      */
-    public function elRadio($name, $label, $value = 1, $checked = null, $options = array())
+    public function elRadio($name, $label, $value = 1, $checked = null, $options = array(), $inline = false)
     {
 
         $radio = $this->radio($name, $value, $checked, $options);
 
         $html = $radio . ' ' . $label;
 
-        return $this->wrapCheckboxRadioGroup($html, 'radio');
+        $class = ! $inline?'checkbox':'checkbox-inline';
+
+        return $this->wrapCheckboxRadioGroup($html, $class);
     }
+
 
     /**
      * @param       $name
@@ -134,17 +152,20 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      * @param int   $value
      * @param null  $checked
      * @param array $options
+     * @param bool  $inline
      *
      * @return string
      */
-    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array())
+    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array(), $inline = false)
     {
 
         $checkbox = $this->checkbox($name, $value, $checked, $options);
 
         $html = $checkbox . ' ' . $label;
 
-        return $this->wrapCheckboxRadioGroup($html, 'checkbox');
+        $class = ! $inline?'checkbox':'checkbox-inline';
+
+        return $this->wrapCheckboxRadioGroup($html, $class);
     }
 
     /**
@@ -153,7 +174,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elSubmit($value, $options = [], $class = 'warning')
+    public function elSubmit($value, $options = [], $class = 'primary')
     {
         return $this->buttons('submit', $value, $options, $class);
     }
@@ -164,7 +185,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elButton($value, $options = [], $class = 'success')
+    public function elButton($value, $options = [], $class = 'primary')
     {
         return $this->buttons('button', $value, $options, $class);
     }
@@ -305,6 +326,14 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         return array_merge($options, $default_options);
 
+    }
+
+    /**
+     * @param $wrapper_options
+     */
+    private function setWrapperOptions($wrapper_options)
+    {
+        $this->wrapper_options = $wrapper_options;
     }
 
 
