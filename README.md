@@ -65,7 +65,7 @@ also use the bootstrap methods.
         <div class="form-group"><input class="btn btn-warning" type="submit" value="Login"></div>
     </form>
     
- ###Blade Code
+###Blade Code
  
     {{ Form::elOpen(['url' => 'login']) }}
         {{ Form::elText('company', 'Company:', null, ['placeholder' => 'Company']) }}
@@ -83,7 +83,7 @@ also use the bootstrap methods.
         {{ Form::elSubmit('Register!', [], 'success') }}
     {{ Form::elClose() }}
     
- ###Generates
+###Generates
  
      <form method="POST" action="http://localhost:8000/login" accept-charset="UTF-8" role="form"><input name="_token" type="hidden" value="6tWO8sy85oiCjXICGIHVRjarBHIYFpB5gf1OJxmu">
          <div  class="form-group"><label for="company">Company:</label><input placeholder="Company" class="form-control" name="company" type="text" id="company"></div>
