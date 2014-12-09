@@ -44,8 +44,11 @@ also use the bootstrap methods.
 * elSelect($name, $label, $list, $selected = null, $options = [])
 * elSubmit($value, $options = [], $class = 'warning')
 * elButton($value, $options = [], $class = 'success')
-* message($messages, $class = 'success')
-
+* elMessage($messages, $class = 'success')
+* elCols($size, $data)
+    * $size is the size of each column. (soon you'll be able to pass an array of column sizes)
+    * $data will be an array of html that will be loaded into the column
+    * Columns are created based on the amount of data elements there are
 #Example:
 ###Blade Code
     {{ Form::elOpen() }}
@@ -61,3 +64,37 @@ also use the bootstrap methods.
         <div class="form-group"><label for="password">Password:</label><input class="form-control" name="password" type="password" value="" id="password"></div>
         <div class="form-group"><input class="btn btn-warning" type="submit" value="Login"></div>
     </form>
+    
+ ###Blade Code
+ 
+    {{ Form::elOpen(['url' => 'login']) }}
+        {{ Form::elText('company', 'Company:', null, ['placeholder' => 'Company']) }}
+        {{ Form::elCols(6, [
+            Form::elText('firstname', 'First Name:', null, ['placeholder' => 'First Name']),
+            Form::elText('lastname', 'Last Name:', null, ['placeholder' => 'Last Name'])
+        ]) }}
+        {{ Form::elEmail('email', 'Email:', null, ['placeholder' => 'Email']) }}
+        {{ Form::elPassword('password', 'Password:', ['placeholder' => 'Password']) }}
+        {{ Form::label('Subscribe to emails:') }}
+        {{ Form::elRadio('subscribe', 'Yes', 1, true, [], true) }}
+        {{ Form::elRadio('subscribe', 'No', 0, true, [], true) }}
+        {{ Form::elSelect('type', 'Account Type:', ['1' => 'Business', '2' => 'Personal']) }}
+        {{ Form::elCheckbox('agree', 'Agree to terms', 1, false) }}
+        {{ Form::elSubmit('Register!', [], 'success') }}
+    {{ Form::elClose() }}
+    
+ ###Generates
+ 
+     <form method="POST" action="http://localhost:8000/login" accept-charset="UTF-8" role="form"><input name="_token" type="hidden" value="6tWO8sy85oiCjXICGIHVRjarBHIYFpB5gf1OJxmu">
+         <div  class="form-group"><label for="company">Company:</label><input placeholder="Company" class="form-control" name="company" type="text" id="company"></div>
+    
+         <div class="row"><div class="col-md-6"><div  class="form-group"><label for="firstname">First Name:</label><input placeholder="First Name" class="form-control" name="firstname" type="text" id="firstname"></div></div><div class="col-md-6"><div  class="form-group"><label for="lastname">Last Name:</label><input placeholder="Last Name" class="form-control" name="lastname" type="text" id="lastname"></div></div></div>
+         <div  class="form-group"><label for="email">Email:</label><input placeholder="Email" class="form-control" name="email" type="email" id="email"></div>
+         <div  class="form-group"><label for="password">Password:</label><input placeholder="Password" class="form-control" name="password" type="password" value="" id="password"></div>
+         <label for="Subscribe to emails:">Subscribe To Emails:</label>
+         <div class="checkbox-inline"><label><input checked="checked" name="subscribe" type="radio" value="1"> Yes</label></div>
+         <div class="checkbox-inline"><label><input checked="checked" name="subscribe" type="radio" value="0"> No</label></div>
+         <div  class="form-group"><label for="type">Account Type:</label><select class="form-control" id="type" name="type"><option value="1">Business</option><option value="2">Personal</option></select></div>
+         <div class="checkbox"><label><input name="agree" type="checkbox" value="1"> Agree to terms</label></div>
+         <div  class="form-group"><input class="btn btn-success" type="submit" value="Register!"></div>
+     </form>

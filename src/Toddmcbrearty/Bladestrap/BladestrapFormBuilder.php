@@ -219,7 +219,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function message($messages, $class = 'success')
+    public function elMessage($messages, $class = 'success')
     {
         $html = '<div class="alert alert-'.$class.'"><ul class="list-unstyled">';
 
@@ -229,6 +229,20 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         }
 
         $html .= "</ul></div>";
+
+        return $html;
+    }
+
+    public function elCols($size, $data) {
+        $html = '<div class="row">';
+
+        foreach($data as $d) {
+            $html .= '<div class="col-md-' . $size . '">';
+            $html .= $d;
+            $html .= '</div>';
+        }
+
+        $html .= "</div>";
 
         return $html;
     }
@@ -267,7 +281,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function field($type, $name, $label, $value, $options = [])
+    private function field($type, $name, $label, $value, $options = [])
     {
         $default_options = [
             'class' => 'form-control',
