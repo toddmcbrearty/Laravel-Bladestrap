@@ -133,8 +133,9 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elRadio($name, $label, $value = 1, $checked = null, $options = array(), $inline = false)
+    public function elRadio($name, $label, $value = 1, $checked = null, $options = array(), $inline = false, $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
 
         $radio = $this->radio($name, $value, $checked, $options);
 
@@ -156,8 +157,9 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array(), $inline = false)
+    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array(), $inline = false, $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
 
         $checkbox = $this->checkbox($name, $value, $checked, $options);
 
