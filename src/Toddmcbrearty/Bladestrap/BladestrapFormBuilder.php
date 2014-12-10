@@ -4,11 +4,6 @@ use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
 use Illuminate\Support\Facades\Form;
 use Illuminate\Support\Facades\HTML;
 
-/**
- * Class FormBuilder
- *
- * @package AcmeHtml
- */
 class BladestrapFormBuilder extends IlluminateFormBuilder {
 
     /**
@@ -222,6 +217,59 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
     }
 
     /**
+     * @param       $name
+     * @param       $label
+     * @param       $begin
+     * @param       $end
+     * @param null  $selected
+     * @param array $options
+     *
+     * @return string
+     */
+    public function elSelectRange($name, $label, $begin, $end, $selected = null, $options = [])
+    {
+
+        $default_options = [
+            'class' => 'form-control',
+        ];
+
+        $options = $this->parseOptions($options, $default_options);
+
+        $html = $this->label($name, ucwords($label));
+        $html .= $this->selectRange($name, $begin, $end, $selected, $options);
+
+        return $this->wrapFormGroup($html);
+
+    }
+
+    public function elSelectMonth($name, $label, $selected = null, $options = [])
+    {
+
+        $default_options = [
+            'class' => 'form-control',
+        ];
+
+        $options = $this->parseOptions($options, $default_options);
+
+        $html = $this->label($name, ucwords($label));
+        $html .= $this->selectMonth($name, $selected, $options);
+
+        return $this->wrapFormGroup($html);
+
+    }
+
+    public function elDate($name, $label, $startYear = 1900) {
+        $ele[] = $this->elSelectMonth('month', 'Month');
+        $ele[] = $this->elSelectRange('day', 'Day', 1, 31);
+        $ele[] = $this->elSelectRange('day', 'Day', $startYear, date('Y'), 1990);
+
+        $html  = $this->label($name, $label);
+        $html .= $this->elCols(4, $ele);
+
+        return $this->wrapFormGroup($html);
+    }
+
+    /**
      * @param $messages
      *
      * @return string
@@ -240,6 +288,12 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         return $html;
     }
 
+    /**
+     * @param $size
+     * @param $data
+     *
+     * @return string
+     */
     public function elCols($size, $data) {
         $html = '<div class="row">';
 
