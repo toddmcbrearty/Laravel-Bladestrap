@@ -176,8 +176,10 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elSubmit($value, $options = [], $class = 'primary')
+    public function elSubmit($value, $options = [], $class = 'primary', $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->buttons('submit', $value, $options, $class);
     }
 
@@ -187,8 +189,10 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elButton($value, $options = [], $class = 'primary')
+    public function elButton($value, $options = [], $class = 'primary', $wrapper_options = [])
     {
+        $this->setWrapperOptions($wrapper_options);
+
         return $this->buttons('button', $value, $options, $class);
     }
 
@@ -203,6 +207,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      */
     public function elSelect($name, $label, $list, $selected = null, $options = [])
     {
+
         $default_options = [
             'class' => 'form-control',
         ];
@@ -256,7 +261,9 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      */
     private function wrapCheckboxRadioGroup($html, $checkRadio)
     {
-        return "<div class=\"{$checkRadio}\"><label>{$html}</label></div>";
+        $options = $this->parseOptions($this->wrapper_options, ['class' => $checkRadio]);
+
+        return "<div ".$this->html->attributes($options)."><label>{$html}</label></div>";
     }
 
     /**
