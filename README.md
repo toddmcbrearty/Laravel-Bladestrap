@@ -49,7 +49,9 @@ also use the bootstrap methods.
     * $size is the size of each column. (soon you'll be able to pass an array of column sizes)
     * $data will be an array of html that will be loaded into the column
     * Columns are created based on the amount of data elements there are
+
 #Example:
+
 ###Blade Code
 
     {{ Form::elOpen() }}
