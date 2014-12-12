@@ -54,11 +54,11 @@ also use the bootstrap methods.
 
 ###Blade Code
 
-    {{ Form::elOpen() }}
-        {{ Form::elText('username', 'Username:') }}
-        {{ Form::elPassword('password', 'Password:') }}
-        {{ Form::elSubmit('Login')
-    {{ Form::close() }} or {{ Form::elClose() }}
+   {{ Form::elOpen() }}
+     {{ Form::elText('username', 'Username:') }}
+     {{ Form::elPassword('password', 'Password:') }}
+     {{ Form::elSubmit('Login')
+   {{ Form::close() }} or {{ Form::elClose() }}
     
 ###Generates
 
