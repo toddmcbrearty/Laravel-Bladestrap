@@ -80,7 +80,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elEmail($name, $label, $value = null, $options = [], $wrapper_options = [])
+    public function elEmail($name, $label = null, $value = null, $options = [], $wrapper_options = [])
     {
         $this->setWrapperOptions($wrapper_options);
 
@@ -95,7 +95,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elPassword($name, $label, $options = [], $wrapper_options = [])
+    public function elPassword($name, $label = null, $options = [], $wrapper_options = [])
     {
         $this->setWrapperOptions($wrapper_options);
 
@@ -111,7 +111,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elTextarea($name, $label, $value = null, $options = [], $wrapper_options = [])
+    public function elTextarea($name, $label = null, $value = null, $options = [], $wrapper_options = [])
     {
         $this->setWrapperOptions($wrapper_options);
 
@@ -128,15 +128,22 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elRadio($name, $label, $value = 1, $checked = null, $options = array(), $inline = false, $wrapper_options = [])
-    {
+    public function elRadio(
+        $name,
+        $label = null,
+        $value = 1,
+        $checked = null,
+        $options = array(),
+        $inline = false,
+        $wrapper_options = []
+    ) {
         $this->setWrapperOptions($wrapper_options);
 
         $radio = $this->radio($name, $value, $checked, $options);
 
         $html = $radio . ' ' . $label;
 
-        $class = ! $inline?'checkbox':'checkbox-inline';
+        $class = ! $inline ? 'checkbox' : 'checkbox-inline';
 
         return $this->wrapCheckboxRadioGroup($html, $class);
     }
@@ -152,15 +159,22 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elCheckbox($name, $label, $value = 1, $checked = null, $options = array(), $inline = false, $wrapper_options = [])
-    {
+    public function elCheckbox(
+        $name,
+        $label,
+        $value = 1,
+        $checked = null,
+        $options = array(),
+        $inline = false,
+        $wrapper_options = []
+    ) {
         $this->setWrapperOptions($wrapper_options);
 
         $checkbox = $this->checkbox($name, $value, $checked, $options);
 
         $html = $checkbox . ' ' . $label;
 
-        $class = ! $inline?'checkbox':'checkbox-inline';
+        $class = ! $inline ? 'checkbox' : 'checkbox-inline';
 
         return $this->wrapCheckboxRadioGroup($html, $class);
     }
@@ -209,7 +223,8 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->label($name, ucwords($label));
+        $html = $this->setLabel($name, $label, $html);
+
         $html .= $this->select($name, $list, $selected, $options);
 
         return $this->wrapFormGroup($html);
@@ -235,7 +250,8 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->label($name, ucwords($label));
+        $html = $this->setLabel($name, $label, $html);
+
         $html .= $this->selectRange($name, $begin, $end, $selected, $options);
 
         return $this->wrapFormGroup($html);
@@ -251,19 +267,21 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->label($name, ucwords($label));
+        $html = $this->setLabel($name, $label, $html);
+
         $html .= $this->selectMonth($name, $selected, $options);
 
         return $this->wrapFormGroup($html);
 
     }
 
-    public function elDate($name, $label, $startYear = 1900) {
+    public function elDate($name, $label, $startYear = 1900)
+    {
         $ele[] = $this->elSelectMonth('month', 'Month');
         $ele[] = $this->elSelectRange('day', 'Day', 1, 31);
         $ele[] = $this->elSelectRange('day', 'Day', $startYear, date('Y'), 1990);
 
-        $html  = $this->label($name, $label);
+        $html = $this->label($name, $label);
         $html .= $this->elCols(4, $ele);
 
         return $this->wrapFormGroup($html);
@@ -276,7 +294,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      */
     public function elMessage($messages, $class = 'success')
     {
-        $html = '<div class="alert alert-'.$class.'"><ul class="list-unstyled">';
+        $html = '<div class="alert alert-' . $class . '"><ul class="list-unstyled">';
 
         foreach($messages as $message)
         {
@@ -294,10 +312,12 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    public function elCols($size, $data) {
+    public function elCols($size, $data)
+    {
         $html = '<div class="row">';
 
-        foreach($data as $d) {
+        foreach($data as $d)
+        {
             $html .= '<div class="col-md-' . $size . '">';
             $html .= $d;
             $html .= '</div>';
@@ -317,7 +337,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
     {
         $options = $this->parseOptions($this->wrapper_options, ['class' => $checkRadio]);
 
-        return "<div ".$this->html->attributes($options)."><label>{$html}</label></div>";
+        return "<div " . $this->html->attributes($options) . "><label>{$html}</label></div>";
     }
 
     /**
@@ -333,7 +353,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($this->wrapper_options, $default_options);
 
-        return "<div ".$this->html->attributes($options).">{$html}</div>";
+        return "<div " . $this->html->attributes($options) . ">{$html}</div>";
     }
 
     /**
@@ -352,7 +372,9 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->label($name, ucwords($label));
+        $html = $this->setLabel($name, $label, $html);
+
+
         if($type == 'password')
             $html .= $this->$type($name, $options);
         else
@@ -371,10 +393,11 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
     {
 
         $default_options = [
-            'class' => 'btn btn-'.$class,
+            'class' => 'btn btn-' . $class,
         ];
 
-        if(isset($options['class'])) {
+        if(isset($options['class']))
+        {
             $options['class'] = $default_options['class'] . ' ' . $options['class'];
             unset($default_options['class']);
         }
@@ -411,6 +434,25 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
     private function setWrapperOptions($wrapper_options)
     {
         $this->wrapper_options = $wrapper_options;
+    }
+
+    /**
+     * @param $name
+     * @param $label
+     * @param $html
+     *
+     * @return string
+     */
+    private function setLabel($name, $label, $html)
+    {
+        $html = '';
+
+        if( ! is_null($label))
+            $html = $this->label($name, ucwords($label));
+
+        return $html;
+
+        return $html;
     }
 
 
