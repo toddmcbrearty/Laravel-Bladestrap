@@ -223,7 +223,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label, $html);
+        $html = $this->setLabel($name, $label);
 
         $html .= $this->select($name, $list, $selected, $options);
 
@@ -250,7 +250,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label, $html);
+        $html = $this->setLabel($name, $label);
 
         $html .= $this->selectRange($name, $begin, $end, $selected, $options);
 
@@ -267,7 +267,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label, $html);
+        $html = $this->setLabel($name, $label);
 
         $html .= $this->selectMonth($name, $selected, $options);
 
@@ -372,7 +372,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label, $html);
+        $html = $this->setLabel($name, $label);
 
 
         if($type == 'password')
@@ -443,7 +443,7 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
      *
      * @return string
      */
-    private function setLabel($name, $label, $html)
+    private function setLabel($name, $label)
     {
         $html = '';
 
