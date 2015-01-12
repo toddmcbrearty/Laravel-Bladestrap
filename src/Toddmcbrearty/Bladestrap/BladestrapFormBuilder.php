@@ -1,16 +1,7 @@
 <?php namespace Toddmcbrearty\Bladestrap;
 
-use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
-use Illuminate\Support\Facades\Form;
-use Illuminate\Support\Facades\HTML;
 
-class BladestrapFormBuilder extends IlluminateFormBuilder {
-
-    /**
-     * @var array
-     */
-    private $wrapper_options = [];
-
+class BladestrapFormBuilder extends BladestrapAbstract  {
 
     /**
      * @param array $options
@@ -26,16 +17,6 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         $options = array_merge($default_options, $options);
 
         return $this->open($options);
-    }
-
-    /**
-     * This just make its stay uniform in the views
-     *
-     * @return mixed
-     */
-    public function elClose()
-    {
-        return $this->close();
     }
 
     /**
@@ -405,54 +386,6 @@ class BladestrapFormBuilder extends IlluminateFormBuilder {
         $options = array_merge($default_options, $options);
 
         return $this->wrapFormGroup($this->$type($value, $options));
-    }
-
-    /**
-     * @param $value
-     * @param $options
-     * @param $default_options
-     *
-     * @return array
-     */
-    private function parseOptions($options, $default_options)
-    {
-        foreach($options as $option => $value)
-        {
-            if($option == 'class')
-            {
-                $default_options['class'] = $default_options['class'] . ' ' . $value;
-            }
-        }
-
-        return array_merge($options, $default_options);
-
-    }
-
-    /**
-     * @param $wrapper_options
-     */
-    private function setWrapperOptions($wrapper_options)
-    {
-        $this->wrapper_options = $wrapper_options;
-    }
-
-    /**
-     * @param $name
-     * @param $label
-     * @param $html
-     *
-     * @return string
-     */
-    private function setLabel($name, $label)
-    {
-        $html = '';
-
-        if( ! is_null($label))
-            $html = $this->label($name, ucwords($label));
-
-        return $html;
-
-        return $html;
     }
 
 
