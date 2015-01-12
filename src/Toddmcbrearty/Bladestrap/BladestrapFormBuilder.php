@@ -314,7 +314,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    private function wrapCheckboxRadioGroup($html, $checkRadio)
+    protected function wrapCheckboxRadioGroup($html, $checkRadio)
     {
         $options = $this->parseOptions($this->wrapper_options, ['class' => $checkRadio]);
 
@@ -326,7 +326,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    private function wrapFormGroup($html)
+    protected function wrapFormGroup($html)
     {
         $default_options = [
             'class' => 'form-group',
@@ -345,7 +345,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    private function field($type, $name, $label, $value, $options = [])
+    protected function field($type, $name, $label, $value, $options = [])
     {
         $default_options = [
             'class' => 'form-control',
@@ -370,7 +370,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    private function buttons($type, $value, $options, $class)
+    protected function buttons($type, $value, $options, $class)
     {
 
         $default_options = [
