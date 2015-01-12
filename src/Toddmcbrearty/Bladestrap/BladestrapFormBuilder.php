@@ -166,11 +166,11 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    public function elSubmit($value, $options = [], $class = 'primary', $wrapper_options = [])
+    public function elSubmit($value, $options = [], $class = 'primary', $wrapper_options = [], $formGroup = true)
     {
         $this->setWrapperOptions($wrapper_options);
 
-        return $this->buttons('submit', $value, $options, $class);
+        return $this->buttons('submit', $value, $options, $class, $formGroup);
     }
 
     /**
@@ -179,11 +179,11 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    public function elButton($value, $options = [], $class = 'primary', $wrapper_options = [])
+    public function elButton($value, $options = [], $class = 'primary', $wrapper_options = [], $formGroup = true)
     {
         $this->setWrapperOptions($wrapper_options);
 
-        return $this->buttons('button', $value, $options, $class);
+        return $this->buttons('button', $value, $options, $class, $formGroup);
     }
 
     /**
@@ -370,7 +370,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    protected function buttons($type, $value, $options, $class)
+    protected function buttons($type, $value, $options, $class, $formGroup = true)
     {
 
         $default_options = [
@@ -385,7 +385,12 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
 
         $options = array_merge($default_options, $options);
 
-        return $this->wrapFormGroup($this->$type($value, $options));
+        $button = $this->$type($value, $options);
+
+        if($formGroup)
+            return $this->wrapFormGroup($button);
+        else
+            return $button;
     }
 
 
