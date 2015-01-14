@@ -204,7 +204,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label);
+        $html = $this->setLabel($name, $label, $options);
 
         $html .= $this->select($name, $list, $selected, $options);
 
@@ -231,7 +231,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label);
+        $html = $this->setLabel($name, $label, $options);
 
         $html .= $this->selectRange($name, $begin, $end, $selected, $options);
 
@@ -248,7 +248,7 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label);
+        $html = $this->setLabel($name, $label, $options);
 
         $html .= $this->selectMonth($name, $selected, $options);
 
@@ -293,13 +293,14 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
      *
      * @return string
      */
-    public function elCols($size, $data)
+    public function elCols($size, $data, $options = [])
     {
+        $class = isset($options['class'])?$options['class']:'';
         $html = '<div class="row">';
 
         foreach($data as $d)
         {
-            $html .= '<div class="col-md-' . $size . '">';
+            $html .= '<div class="col-md-' . $size . ' . ' . $class . '">';
             $html .= $d;
             $html .= '</div>';
         }
@@ -353,7 +354,8 @@ class BladestrapFormBuilder extends BladestrapAbstract  {
 
         $options = $this->parseOptions($options, $default_options);
 
-        $html = $this->setLabel($name, $label);
+
+        $html = $this->setLabel($name, $label, $options);
 
 
         if($type == 'password')
