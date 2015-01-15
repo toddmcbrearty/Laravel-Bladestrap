@@ -210,12 +210,15 @@ abstract class BladestrapAbstract extends IlluminateFormBuilder {
      *
      * @return string
      */
-    protected function setLabel($name, $label)
+    protected function setLabel($name, $label, $options)
     {
         $html = '';
 
         if( ! is_null($label))
             $html = $this->label($name, ucwords($label));
+
+        if(isset($options['label_position']) && $options['label_position'] != "inline")
+            $html .= "<br />";
 
         return $html;
     }
